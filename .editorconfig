@@ -15,6 +15,9 @@ trim_trailing_whitespace = true
 [*.md]
 trim_trailing_whitespace = false
 
+[Brewfile]
+indent_size = 4
+
 [BUILD]
 indent_size = 4
 

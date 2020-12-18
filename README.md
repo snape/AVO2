@@ -3,8 +3,8 @@ Reciprocal Collision Avoidance with Acceleration-Velocity Obstacles
 
 <https://gamma.cs.unc.edu/AVO/>
 
-[![Build Status](https://travis-ci.org/snape/AVO2.svg?branch=master)](https://travis-ci.org/snape/AVO2)
-[![Build status](https://ci.appveyor.com/api/projects/status/jnyngjl3dy4kbhcq/branch/master?svg=true)](https://ci.appveyor.com/project/snape/avo2)
+![Build Status](https://github.com/snape/AVO2/workflows/ci/badge.svg?branch=master)
+[![Build Status](https://travis-ci.com/snape/AVO2.svg?branch=master)](https://travis-ci.com/snape/AVO2)
 
 Copyright 2010 University of North Carolina at Chapel Hill
 

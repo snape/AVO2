@@ -1,19 +1,60 @@
 ---
-sudo: false
 language: cpp
+os:
+  - linux
+dist: focal
+version: ~> 1.0
+
+arch:
+  - amd64
+  - arm64
+  - ppc64le
+  - s390x
+
 compiler:
   - clang
   - gcc
-os:
-  - linux
-  - osx
-install:
-  - if [[ "${TRAVIS_OS_NAME}" = linux ]]; then CMAKE_PLATFORM=Linux; else CMAKE_PLATFORM=Darwin; fi
-  - wget "https://cmake.org/files/v3.11/cmake-3.11.1-${CMAKE_PLATFORM}-x86_64.tar.gz"
-  - tar -xf "cmake-3.11.1-${CMAKE_PLATFORM}-x86_64.tar.gz"
-  - export PATH="${TRAVIS_BUILD_DIR}/cmake-3.11.1-${CMAKE_PLATFORM}-x86_64/bin:${PATH}"
-script:
-  - mkdir _build
-  - cd _build
-  - cmake -DOUTPUT_TIME_AND_POSITIONS:BOOL=OFF ..
-  - ctest -VV -D Experimental .
+
+env:
+  - CMAKE_GENERATOR=Ninja
+  - CMAKE_GENERATOR="Unix Makefiles"
+
+addons:
+  apt:
+    sources:
+      - sourceline: "deb https://apt.kitware.com/ubuntu/ $TRAVIS_DIST main"
+        key_url: "https://apt.kitware.com/keys/kitware-archive-latest.asc"
+    packages:
+      - clang
+      - cmake
+      - g++
+      - make
+      - ninja-build
+      - pkg-config
+
+jobs:
+  include:
+    - arch: arm64-graviton2
+      compiler: clang
+      virt: lxd
+    - arch: arm64-graviton2
+      compiler: gcc
+      virt: lxd
+
+script: |
+  mkdir _build
+  cd _build
+  cmake \
+    -DBUILD_DOCUMENTATION:BOOL=OFF \
+    -DBUILD_TESTING:BOOL=ON \
+    -DCMAKE_INSTALL_PREFIX:PATH=_install \
+    -DENABLE_HARDENING:BOOL=OFF \
+    -DENABLE_INTERPROCEDURAL_OPTIMIZATION:BOOL=OFF \
+    -DENABLE_OPENMP:BOOL=OFF \
+    -DOUTPUT_TIME_AND_POSITIONS:BOOL=OFF \
+    -DWARNINGS_AS_ERRORS:BOOL=ON \
+    --warn-uninitialized \
+    ..
+  cmake --build .
+  ctest .
+  cmake --install .
