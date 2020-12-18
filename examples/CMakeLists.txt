@@ -34,28 +34,35 @@
 #
 
 if(BUILD_TESTING)
-    option(OUTPUT_TIME_AND_POSITIONS "Output time and positions" ON)
+  option(OUTPUT_TIME_AND_POSITIONS "Output time and positions" ON)
 
-    if(OUTPUT_TIME_AND_POSITIONS)
-        set(AVO_EXAMPLES_COMPILE_DEFINITIONS AVO_OUTPUT_TIME_AND_POSITIONS=1)
-    else()
-        set(AVO_EXAMPLES_COMPILE_DEFINITIONS AVO_OUTPUT_TIME_AND_POSITIONS=0)
-    endif()
+  if(OUTPUT_TIME_AND_POSITIONS)
+    set(AVO_EXAMPLES_COMPILE_DEFINITIONS AVO_OUTPUT_TIME_AND_POSITIONS=1)
+  else()
+    set(AVO_EXAMPLES_COMPILE_DEFINITIONS AVO_OUTPUT_TIME_AND_POSITIONS=0)
+  endif()
 
-    if(ENABLE_OPENMP AND OpenMP_FOUND)
-        set(AVO_EXAMPLES_COMPILE_OPTIONS ${OpenMP_CXX_FLAGS})
-        set(AVO_EXAMPLES_LINK_FLAGS "${OpenMP_CXX_FLAGS}")
-    else()
-        set(AVO_EXAMPLES_COMPILE_OPTIONS)
-        set(AVO_EXAMPLES_LINK_FLAGS)
-    endif()
+  if(ENABLE_OPENMP AND OpenMP_FOUND)
+    set(AVO_EXAMPLES_COMPILE_OPTIONS ${OpenMP_CXX_FLAGS})
+    set(AVO_EXAMPLES_LINK_FLAGS "${OpenMP_CXX_FLAGS}")
+  else()
+    set(AVO_EXAMPLES_COMPILE_OPTIONS)
+    set(AVO_EXAMPLES_LINK_FLAGS)
+  endif()
 
-    add_executable(Circle Circle.cc)
-    target_compile_definitions(Circle PRIVATE
-        ${AVO_EXAMPLES_COMPILE_DEFINITIONS})
-    target_link_libraries(Circle PRIVATE ${AVO_LIBRARY})
-    target_compile_options(Circle PRIVATE ${AVO_EXAMPLES_COMPILE_OPTIONS})
-    set_target_properties(Circle PROPERTIES
-        LINK_FLAGS "${AVO_EXAMPLES_LINK_FLAGS}")
-    add_test(NAME Circle COMMAND Circle)
+  if(ENABLE_INTERPROCEDURAL_OPTIMIZATION
+      AND AVO_INTERPROCEDURAL_OPTIMIZATION_SUPPORTED)
+    set(AVO_EXAMPLES_INTERPROCEDURAL_OPTIMIZATION ON)
+  else()
+    set(AVO_EXAMPLES_INTERPROCEDURAL_OPTIMIZATION OFF)
+  endif()
+
+  add_executable(Circle Circle.cc)
+  target_compile_definitions(Circle PRIVATE ${AVO_EXAMPLES_COMPILE_DEFINITIONS})
+  target_link_libraries(Circle PRIVATE ${AVO_LIBRARY})
+  target_compile_options(Circle PRIVATE ${AVO_EXAMPLES_COMPILE_OPTIONS})
+  set_target_properties(Circle PROPERTIES
+    INTERPROCEDURAL_OPTIMIZATION ${AVO_EXAMPLES_INTERPROCEDURAL_OPTIMIZATION}
+    LINK_FLAGS "${AVO_EXAMPLES_LINK_FLAGS}")
+  add_test(NAME Circle COMMAND Circle)
 endif()

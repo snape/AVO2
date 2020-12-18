@@ -457,7 +457,8 @@ void Agent::computeNewVelocity(float timeStep) {
           if (!intersections.empty()) {
             // Line between first and last left intersection.
             line.direction =
-                left * normalize(intersections.back() - intersections.front());
+                static_cast<float>(left) *
+                normalize(intersections.back() - intersections.front());
             line.point = 0.5f * intersections.front();
             orcaLines_.push_back(line);
             continue;
@@ -494,7 +495,8 @@ void Agent::computeNewVelocity(float timeStep) {
               q = p.second;
             }
 
-            line.direction = left * normalize(intersections.back() - q);
+            line.direction =
+                static_cast<float>(left) * normalize(intersections.back() - q);
             line.point = 0.5f * q;
             orcaLines_.push_back(line);
             continue;
@@ -534,8 +536,8 @@ void Agent::computeNewVelocity(float timeStep) {
       }
     }
 
-    line.direction =
-        left * normalize(boundary[minSegment + 1] - boundary[minSegment]);
+    line.direction = static_cast<float>(left) *
+                     normalize(boundary[minSegment + 1] - boundary[minSegment]);
     line.point = 0.5f * boundary[minSegment];
     orcaLines_.push_back(line);
   }

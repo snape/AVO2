@@ -1,3 +1,6 @@
+# -*- mode: cmake -*-
+# vi: set ft=cmake :
+
 #
 # AVOConfig.cmake
 # AVO2 Library
@@ -42,4 +45,6 @@ set_and_check(AVO_INCLUDE_DIRS "@PACKAGE_AVO_INCLUDE_DIR@")
 set_and_check(AVO_LIBRARY_DIRS "@PACKAGE_AVO_LIBRARY_DIR@")
 set(AVO_LIBRARIES @PROJECT_NAME@::@AVO_LIBRARY@)
 
-include("${CMAKE_CURRENT_LIST_DIR}/AVOTargets.cmake")
+check_required_components(@PROJECT_NAME@)
+
+include("${CMAKE_CURRENT_LIST_DIR}/@PROJECT_NAME@Targets.cmake")
