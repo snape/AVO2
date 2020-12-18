@@ -1,7 +1,7 @@
 Reciprocal Collision Avoidance with Acceleration-Velocity Obstacles
 ===================================================================
 
-<http://gamma.cs.unc.edu/AVO/>
+<https://gamma.cs.unc.edu/AVO/>
 
 [![Build Status](https://travis-ci.org/snape/AVO2.svg?branch=master)](https://travis-ci.org/snape/AVO2)
 [![Build status](https://ci.appveyor.com/api/projects/status/jnyngjl3dy4kbhcq/branch/master?svg=true)](https://ci.appveyor.com/project/snape/avo2)
@@ -12,7 +12,7 @@ Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-<http://www.apache.org/licenses/LICENSE-2.0>
+<https://www.apache.org/licenses/LICENSE-2.0>
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
