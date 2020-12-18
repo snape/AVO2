@@ -33,7 +33,8 @@
 # <https://gamma.cs.unc.edu/AVO/>
 #
 
-load("@bazel_tools//tools/build_defs/pkg:pkg.bzl", "pkg_tar")
+load("@rules_cc//cc:defs.bzl", "cc_library")
+load("@rules_pkg//:pkg.bzl", "pkg_tar")
 
 licenses(["notice"])
 
@@ -52,7 +53,7 @@ cat << 'EOF' > $@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -71,7 +72,7 @@ cat << 'EOF' > $@
  * Chapel Hill, N.C. 27599-3175
  * United States of America
  *
- * <http://gamma.cs.unc.edu/AVO/>
+ * <https://gamma.cs.unc.edu/AVO/>
  */
 
 #ifndef AVO_EXPORT_H_

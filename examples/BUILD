@@ -33,6 +33,8 @@
 # <https://gamma.cs.unc.edu/AVO/>
 #
 
+load("@rules_cc//cc:defs.bzl", "cc_test")
+
 licenses(["notice"])
 
 cc_test(

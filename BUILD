@@ -33,7 +33,7 @@
 # <https://gamma.cs.unc.edu/AVO/>
 #
 
-load("@bazel_tools//tools/build_defs/pkg:pkg.bzl", "pkg_deb", "pkg_tar")
+load("@rules_pkg//:pkg.bzl", "pkg_deb", "pkg_tar")
 
 licenses(["notice"])
 
@@ -92,7 +92,7 @@ includedir=$${prefix}/include/AVO
 Name: AVO2 Library
 Description: Reciprocal Collision Avoidance with Acceleration-Velocity Obstacles
 URL: https://gamma.cs.unc.edu/AVO/
-Version: 1.0.0
+Version: 1.0.1
 Libs: -L$${libdir} -lAVO
 Cflags: -I$${includedir}
 EOF
@@ -133,6 +133,6 @@ pkg_deb(
     homepage = "https://gamma.cs.unc.edu/AVO/",
     maintainer = "Jamie Snape",
     package = "avo",
-    version = "1.0.0",
+    version = "1.0.1",
     visibility = ["//visibility:public"],
 )
