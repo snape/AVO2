@@ -15,6 +15,12 @@ trim_trailing_whitespace = true
 [*.md]
 trim_trailing_whitespace = false
 
+[.bazelignore]
+indent_size = 4
+
+[.bazelrc]
+indent_size = 4
+
 [Brewfile]
 indent_size = 4
 
