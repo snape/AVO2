@@ -20,8 +20,8 @@ applied to kinematically constrained non-holonomic robots such as cars. We have
 implemented our approach, and we show simulation results in challenging
 environments with large numbers of robots and obstacles.
 
-![Build Status](https://github.com/snape/AVO2/workflows/ci/badge.svg?branch=master)
-[![Build Status](https://travis-ci.com/snape/AVO2.svg?branch=master)](https://travis-ci.com/snape/AVO2)
+![Build Status](https://github.com/snape/AVO2/workflows/ci/badge.svg?branch=main)
+[![Build Status](https://travis-ci.com/snape/AVO2.svg?branch=main)](https://travis-ci.com/snape/AVO2)
 
 Copyright 2010 University of North Carolina at Chapel Hill
 
