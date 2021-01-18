@@ -39,6 +39,7 @@ licenses(["notice"])
 
 cc_test(
     name = "Circle",
+    size = "medium",
     srcs = ["Circle.cc"],
     defines = ["AVO_OUTPUT_TIME_AND_POSITIONS=0"],
     visibility = ["//visibility:public"],
