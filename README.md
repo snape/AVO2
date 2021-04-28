@@ -21,7 +21,7 @@ implemented our approach, and we show simulation results in challenging
 environments with large numbers of robots and obstacles.
 
 ![Build Status](https://github.com/snape/AVO2/workflows/ci/badge.svg?branch=main)
-[![Build Status](https://travis-ci.com/snape/AVO2.svg?branch=main)](https://travis-ci.com/snape/AVO2)
+[![Build Status](https://circleci.com/gh/snape/AVO2/tree/main.svg?style=svg)](https://circleci.com/gh/snape/AVO2/?branch=main)
 
 Copyright 2010 University of North Carolina at Chapel Hill
 
