@@ -2,7 +2,7 @@
 # vi: set ft=bazel:
 
 #
-# examples/BUILD
+# examples/BUILD.bazel
 # AVO2 Library
 #
 # Copyright 2010 University of North Carolina at Chapel Hill

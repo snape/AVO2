@@ -12,6 +12,9 @@ insert_final_newline = true
 max_line_length = 80
 trim_trailing_whitespace = true
 
+[*.bazel]
+indent_size = 4
+
 [*.md]
 trim_trailing_whitespace = false
 
@@ -22,10 +25,4 @@ indent_size = 4
 indent_size = 4
 
 [Brewfile]
-indent_size = 4
-
-[BUILD]
-indent_size = 4
-
-[WORKSPACE]
 indent_size = 4
