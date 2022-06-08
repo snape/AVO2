@@ -1,8 +1,5 @@
-# -*- mode: ruby; -*-
-# vi: set ft=ruby:
-
 #
-# Brewfile
+# requirements.txt
 # AVO2 Library
 #
 # SPDX-FileCopyrightText: 2010 University of North Carolina at Chapel Hill
@@ -34,12 +31,5 @@
 # <https://gamma.cs.unc.edu/AVO/>
 #
 
-brew 'bazel'
-brew 'buildifier'
-brew 'clang-format'
-brew 'cmake'
-brew 'doxygen'
-brew 'gcc'
-brew 'graphviz'
-brew 'ninja'
-brew 'pkgconf'
+cmakelang
+reuse
