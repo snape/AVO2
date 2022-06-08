@@ -43,12 +43,15 @@
 
 #include "Agent.h"
 #include "KdTree.h"
+#include "Line.h"
+#include "Vector2.h"
 
 namespace AVO {
 Simulator::Simulator()
-    : defaultAgent_(NULL), kdTree_(NULL), globalTime_(0.0f), timeStep_(0.0f) {
-  kdTree_ = new KdTree(this);
-}
+    : defaultAgent_(NULL),
+      kdTree_(new KdTree(this)),
+      globalTime_(0.0F),
+      timeStep_(0.0F) {}
 
 Simulator::~Simulator() {
   delete defaultAgent_;
@@ -89,19 +92,19 @@ std::size_t Simulator::addAgent(const Vector2 &position, float neighborDist,
                                 float accelInterval) {
   Agent *agent = new Agent();
 
-  assert(accelInterval >= 0.0f);
+  assert(accelInterval >= 0.0F);
   agent->accelInterval_ = accelInterval;
-  assert(maxAccel >= 0.0f);
+  assert(maxAccel >= 0.0F);
   agent->maxAccel_ = maxAccel;
   agent->maxNeighbors_ = maxNeighbors;
-  assert(maxSpeed >= 0.0f);
+  assert(maxSpeed >= 0.0F);
   agent->maxSpeed_ = maxSpeed;
-  assert(neighborDist >= 0.0f);
+  assert(neighborDist >= 0.0F);
   agent->neighborDist_ = neighborDist;
   agent->position_ = position;
-  assert(radius >= 0.0f);
+  assert(radius >= 0.0F);
   agent->radius_ = radius;
-  assert(timeHorizon >= 0.0f);
+  assert(timeHorizon >= 0.0F);
   agent->timeHorizon_ = timeHorizon;
   agent->id_ = agents_.size();
 
@@ -116,19 +119,19 @@ std::size_t Simulator::addAgent(const Vector2 &position, float neighborDist,
                                 float accelInterval, const Vector2 &velocity) {
   Agent *agent = new Agent();
 
-  assert(accelInterval >= 0.0f);
+  assert(accelInterval >= 0.0F);
   agent->accelInterval_ = accelInterval;
-  assert(maxAccel >= 0.0f);
+  assert(maxAccel >= 0.0F);
   agent->maxAccel_ = maxAccel;
   agent->maxNeighbors_ = maxNeighbors;
-  assert(maxSpeed >= 0.0f);
+  assert(maxSpeed >= 0.0F);
   agent->maxSpeed_ = maxSpeed;
-  assert(neighborDist >= 0.0f);
+  assert(neighborDist >= 0.0F);
   agent->neighborDist_ = neighborDist;
   agent->position_ = position;
-  assert(radius >= 0.0f);
+  assert(radius >= 0.0F);
   agent->radius_ = radius;
-  assert(timeHorizon >= 0.0f);
+  assert(timeHorizon >= 0.0F);
   agent->timeHorizon_ = timeHorizon;
   agent->velocity_ = velocity;
   agent->id_ = agents_.size();
@@ -235,7 +238,7 @@ const Vector2 &Simulator::getAgentVelocity(std::size_t agentNo) const {
 
 void Simulator::setAgentAccelInterval(std::size_t agentNo,
                                       float accelInterval) {
-  assert(agentNo < agents_.size() && accelInterval >= 0.0f);
+  assert(agentNo < agents_.size() && accelInterval >= 0.0F);
   agents_[agentNo]->accelInterval_ = accelInterval;
 }
 
@@ -247,18 +250,18 @@ void Simulator::setAgentDefaults(float neighborDist, std::size_t maxNeighbors,
     defaultAgent_ = new Agent();
   }
 
-  assert(accelInterval >= 0.0f);
+  assert(accelInterval >= 0.0F);
   defaultAgent_->accelInterval_ = accelInterval;
-  assert(maxAccel >= 0.0f);
+  assert(maxAccel >= 0.0F);
   defaultAgent_->maxAccel_ = maxAccel;
   defaultAgent_->maxNeighbors_ = maxNeighbors;
-  assert(maxSpeed >= 0.0f);
+  assert(maxSpeed >= 0.0F);
   defaultAgent_->maxSpeed_ = maxSpeed;
-  assert(neighborDist >= 0.0f);
+  assert(neighborDist >= 0.0F);
   defaultAgent_->neighborDist_ = neighborDist;
-  assert(radius >= 0.0f);
+  assert(radius >= 0.0F);
   defaultAgent_->radius_ = radius;
-  assert(timeHorizon >= 0.0f);
+  assert(timeHorizon >= 0.0F);
   defaultAgent_->timeHorizon_ = timeHorizon;
 }
 
@@ -270,24 +273,24 @@ void Simulator::setAgentDefaults(float neighborDist, std::size_t maxNeighbors,
     defaultAgent_ = new Agent();
   }
 
-  assert(accelInterval >= 0.0f);
+  assert(accelInterval >= 0.0F);
   defaultAgent_->accelInterval_ = accelInterval;
-  assert(maxAccel >= 0.0f);
+  assert(maxAccel >= 0.0F);
   defaultAgent_->maxAccel_ = maxAccel;
   defaultAgent_->maxNeighbors_ = maxNeighbors;
-  assert(maxSpeed >= 0.0f);
+  assert(maxSpeed >= 0.0F);
   defaultAgent_->maxSpeed_ = maxSpeed;
-  assert(neighborDist >= 0.0f);
+  assert(neighborDist >= 0.0F);
   defaultAgent_->neighborDist_ = neighborDist;
-  assert(radius >= 0.0f);
+  assert(radius >= 0.0F);
   defaultAgent_->radius_ = radius;
-  assert(timeHorizon >= 0.0f);
+  assert(timeHorizon >= 0.0F);
   defaultAgent_->timeHorizon_ = timeHorizon;
   defaultAgent_->velocity_ = velocity;
 }
 
 void Simulator::setAgentMaxAccel(std::size_t agentNo, float maxAccel) {
-  assert(agentNo < agents_.size() && maxAccel >= 0.0f);
+  assert(agentNo < agents_.size() && maxAccel >= 0.0F);
   agents_[agentNo]->maxAccel_ = maxAccel;
 }
 
@@ -298,12 +301,12 @@ void Simulator::setAgentMaxNeighbors(std::size_t agentNo,
 }
 
 void Simulator::setAgentMaxSpeed(std::size_t agentNo, float maxSpeed) {
-  assert(agentNo < agents_.size() && maxSpeed >= 0.0f);
+  assert(agentNo < agents_.size() && maxSpeed >= 0.0F);
   agents_[agentNo]->maxSpeed_ = maxSpeed;
 }
 
 void Simulator::setAgentNeighborDist(std::size_t agentNo, float neighborDist) {
-  assert(agentNo < agents_.size() && neighborDist >= 0.0f);
+  assert(agentNo < agents_.size() && neighborDist >= 0.0F);
   agents_[agentNo]->neighborDist_ = neighborDist;
 }
 
@@ -319,12 +322,12 @@ void Simulator::setAgentPrefVelocity(std::size_t agentNo,
 }
 
 void Simulator::setAgentRadius(std::size_t agentNo, float radius) {
-  assert(agentNo < agents_.size() && radius >= 0.0f);
+  assert(agentNo < agents_.size() && radius >= 0.0F);
   agents_[agentNo]->radius_ = radius;
 }
 
 void Simulator::setAgentTimeHorizon(std::size_t agentNo, float timeHorizon) {
-  assert(agentNo < agents_.size() && timeHorizon >= 0.0f);
+  assert(agentNo < agents_.size() && timeHorizon >= 0.0F);
   agents_[agentNo]->timeHorizon_ = timeHorizon;
 }
 

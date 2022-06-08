@@ -43,12 +43,12 @@
 #include <vector>
 
 #include "Export.h"
-#include "Vector2.h"
 
 namespace AVO {
 class Agent;
 class KdTree;
 class Line;
+class Vector2;
 
 /**
  * \class  Simulator

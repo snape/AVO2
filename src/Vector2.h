@@ -48,7 +48,7 @@ namespace AVO {
 /**
  * \brief  A sufficiently small positive float.
  */
-const float AVO_EPSILON = 0.00001f;
+const float AVO_EPSILON = 0.00001F;
 
 /**
  * \class  Vector2
@@ -59,7 +59,7 @@ class AVO_EXPORT Vector2 {
   /**
    * \brief  Constructor.
    */
-  Vector2() : x_(0.0f), y_(0.0f) {}
+  Vector2() : x_(0.0F), y_(0.0F) {}
 
   /**
    * \brief      Constructor.
@@ -130,7 +130,7 @@ class AVO_EXPORT Vector2 {
    *             value.
    */
   Vector2 operator/(float scalar) const {
-    const float invScalar = 1.0f / scalar;
+    const float invScalar = 1.0F / scalar;
 
     return Vector2(x_ * invScalar, y_ * invScalar);
   }
@@ -195,7 +195,7 @@ class AVO_EXPORT Vector2 {
    * \return     A reference to this vector.
    */
   Vector2 &operator/=(float scalar) {
-    const float invScalar = 1.0f / scalar;
+    const float invScalar = 1.0F / scalar;
 
     x_ *= invScalar;
     y_ *= invScalar;

@@ -66,10 +66,10 @@ class KdTree {
           end(0),
           left(0),
           right(0),
-          maxX(0.0f),
-          maxY(0.0f),
-          minX(0.0f),
-          minY(0.0f) {}
+          maxX(0.0F),
+          maxY(0.0F),
+          minX(0.0F),
+          minY(0.0F) {}
 
     /**
      * \brief  The beginning node number.
@@ -117,6 +117,11 @@ class KdTree {
    * \param[in]  simulator  The simulation.
    */
   explicit KdTree(Simulator *simulator) : simulator_(simulator) {}
+
+  /**
+   * \brief  Destructor.
+   */
+  ~KdTree() {}
 
   /**
    * \brief  Builds an agent k-D tree.

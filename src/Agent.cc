@@ -51,10 +51,10 @@ Vector2 tangentPoint(const Vector2 &p, float r) {
 
 Vector2 boundaryAVO(const Vector2 &p, const Vector2 &v, float r, float delta,
                     float t) {
-  const float e = std::exp(-t / delta) - 1.0f;
-  const float temp = 1.0f / (t + delta * e);
+  const float e = std::exp(-t / delta) - 1.0F;
+  const float temp = 1.0F / (t + delta * e);
 
-  const Vector2 dc = (-e * p - (delta * e + (e + 1.0f) * t) * v) * temp * temp;
+  const Vector2 dc = (-e * p - (delta * e + (e + 1.0F) * t) * v) * temp * temp;
   const Vector2 rdrdc = (delta + t / e) * dc;
 
   const Vector2 c = (delta * e * v - p) * temp;
@@ -64,7 +64,7 @@ Vector2 boundaryAVO(const Vector2 &p, const Vector2 &v, float r, float delta,
 }
 
 Vector2 centerAVO(const Vector2 &p, const Vector2 &v, float delta, float t) {
-  const float temp = delta * (std::exp(-t / delta) - 1.0f);
+  const float temp = delta * (std::exp(-t / delta) - 1.0F);
   return (temp * v - p) / (t + temp) - v;
 }
 
@@ -75,8 +75,8 @@ std::pair<Vector2, Vector2> circleCircleIntersection(float R, float r,
   const float pxSq = p.x_ * p.x_;
   const float pySq = p.y_ * p.y_;
   const float squareRoot = std::sqrt(
-      -pxSq * (pxSq * pxSq + pySq * pySq + 2.0f * pxSq * (pySq - rSq - RSq) +
-               (rSq - RSq) * (rSq - RSq) - 2.0f * pySq * (rSq + RSq)));
+      -pxSq * (pxSq * pxSq + pySq * pySq + 2.0F * pxSq * (pySq - rSq - RSq) +
+               (rSq - RSq) * (rSq - RSq) - 2.0F * pySq * (rSq + RSq)));
 
   const float xNum = pxSq * pxSq + pxSq * pySq - pxSq * rSq + pxSq * RSq;
   const float yNum = pxSq * p.y_ + p.y_ * pySq - p.y_ * rSq + p.y_ * RSq;
@@ -94,10 +94,10 @@ float distSqPointLineSegment(const Vector2 &vector1, const Vector2 &vector2,
   const float r =
       ((vector3 - vector1) * (vector2 - vector1)) / absSq(vector2 - vector1);
 
-  if (r < 0.0f) {
+  if (r < 0.0F) {
     return absSq(vector3 - vector1);
   }
-  if (r > 1.0f) {
+  if (r > 1.0F) {
     return absSq(vector3 - vector2);
   }
   return absSq(vector3 - (vector1 + r * (vector2 - vector1)));
@@ -109,7 +109,7 @@ float leftOf(const Vector2 &vector1, const Vector2 &vector2,
 }
 
 float radiusAVO(float r, float delta, float t) {
-  return r / (t + delta * (std::exp(-t / delta) - 1.0f));
+  return r / (t + delta * (std::exp(-t / delta) - 1.0F));
 }
 
 bool linearProgram1(const std::vector<Line> &lines, std::size_t lineNo,
@@ -119,7 +119,7 @@ bool linearProgram1(const std::vector<Line> &lines, std::size_t lineNo,
   const float discriminant =
       dotProduct * dotProduct + radius * radius - absSq(lines[lineNo].point);
 
-  if (discriminant < 0.0f) {
+  if (discriminant < 0.0F) {
     // Max speed circle fully invalidates line lineNo.
     return false;
   }
@@ -135,7 +135,7 @@ bool linearProgram1(const std::vector<Line> &lines, std::size_t lineNo,
 
     if (std::fabs(denominator) <= AVO_EPSILON) {
       // Lines lineNo and i are (almost) parallel.
-      if (numerator < 0.0f) {
+      if (numerator < 0.0F) {
         return false;
       }
       continue;
@@ -143,7 +143,7 @@ bool linearProgram1(const std::vector<Line> &lines, std::size_t lineNo,
 
     const float t = numerator / denominator;
 
-    if (denominator >= 0.0f) {
+    if (denominator >= 0.0F) {
       // Line i bounds line lineNo on the right.
       tRight = std::min(tRight, t);
     } else {
@@ -158,7 +158,7 @@ bool linearProgram1(const std::vector<Line> &lines, std::size_t lineNo,
 
   if (directionOpt) {
     // Optimize direction.
-    if (optVelocity * lines[lineNo].direction > 0.0f) {
+    if (optVelocity * lines[lineNo].direction > 0.0F) {
       // Take right extreme.
       result = lines[lineNo].point + tRight * lines[lineNo].direction;
     } else {
@@ -198,7 +198,7 @@ std::size_t linearProgram2(const std::vector<Line> &lines, float radius,
   }
 
   for (std::size_t lineNo = 0; lineNo < lines.size(); ++lineNo) {
-    if (det(lines[lineNo].direction, lines[lineNo].point - result) > 0.0f) {
+    if (det(lines[lineNo].direction, lines[lineNo].point - result) > 0.0F) {
       // Result does not satisfy constraint i. Compute new optimal result.
       const Vector2 tempResult = result;
 
@@ -215,7 +215,7 @@ std::size_t linearProgram2(const std::vector<Line> &lines, float radius,
 
 void linearProgram3(const std::vector<Line> &lines, std::size_t numObstLines,
                     float radius, Vector2 &result) {
-  float distance = 0.0f;
+  float distance = 0.0F;
 
   for (std::size_t lineNo = numObstLines; lineNo < lines.size(); ++lineNo) {
     if (det(lines[lineNo].direction, lines[lineNo].point - result) > distance) {
@@ -231,12 +231,12 @@ void linearProgram3(const std::vector<Line> &lines, std::size_t numObstLines,
 
         if (std::fabs(determinant) <= AVO_EPSILON) {
           // Line i and line j are parallel.
-          if (lines[lineNo].direction * lines[j].direction > 0.0f) {
+          if (lines[lineNo].direction * lines[j].direction > 0.0F) {
             // Line i and line j point in the same direction.
             continue;
           }
           // Line i and line j point in opposite direction.
-          line.point = 0.5f * (lines[lineNo].point + lines[j].point);
+          line.point = 0.5F * (lines[lineNo].point + lines[j].point);
 
         } else {
           line.point =
@@ -314,20 +314,20 @@ void Agent::computeNewVelocity(float timeStep) {
     const float combinedRadiusSq = combinedRadius * combinedRadius;
 
     std::deque<Vector2> boundary;
-    bool convex;
-    int left;  // 1 if left, -1 if right.
+    bool convex = false;
+    float left = 0.0F;  // 1 if left, -1 if right.
     Vector2 cutoffCenter;
-    float cutoffRadius;
+    float cutoffRadius = 0.0F;
 
     // Check if left boundary or right boundary matters.
     const float determinant = det(relativePosition, relativeVelocity);
 
-    if (determinant > 0.0f) {
+    if (determinant > 0.0F) {
       // Right boundary matters.
-      left = -1;
+      left = -1.0F;
     } else {
       // Left boundary matters.
-      left = 1;
+      left = 1.0F;
     }
 
     if (relativePositionSq <= combinedRadiusSq) {
@@ -371,7 +371,7 @@ void Agent::computeNewVelocity(float timeStep) {
       const float discr = combinedRadiusSq * absSq(relativeVelocity) -
                           determinant * determinant;
 
-      if (discr >= 0.0f) {
+      if (discr >= 0.0F) {
         convex = (std::sqrt(discr) - relativePosition * relativeVelocity >= 0);
       } else {
         convex = false;
@@ -380,8 +380,9 @@ void Agent::computeNewVelocity(float timeStep) {
       float lastTime = timeStep;
 
       for (std::size_t i = 0; i <= AVO_MAX_STEPS; ++i) {
-        const float t =
-            timeStep + i * (timeHorizon_ - timeStep) / AVO_MAX_STEPS;
+        const float t = timeStep + static_cast<float>(i) *
+                                       (timeHorizon_ - timeStep) /
+                                       AVO_MAX_STEPS;
         boundary.push_front(boundaryAVO(relativePosition, relativeVelocity,
                                         left * combinedRadius, accelInterval_,
                                         t));
@@ -426,7 +427,7 @@ void Agent::computeNewVelocity(float timeStep) {
           const float distSq1 = absSq(boundary[i]);
           const float distSq2 = absSq(boundary[i + 1]);
 
-          if (discr2 > 0.0f && ((distSq1 < rSq && distSq2 > rSq) ||
+          if (discr2 > 0.0F && ((distSq1 < rSq && distSq2 > rSq) ||
                                 (distSq1 >= rSq && distSq2 <= rSq) ||
                                 (distSq1 >= rSq && distSq2 > rSq &&
                                  absSq(p - (p * v / vSq) * v) < rSq))) {
@@ -434,12 +435,12 @@ void Agent::computeNewVelocity(float timeStep) {
             const float t1 = -(p * v + discrSqrt) / vSq;
             const float t2 = -(p * v - discrSqrt) / vSq;
 
-            if (t1 >= 0.0f && t1 < 1.0f) {
+            if (t1 >= 0.0F && t1 < 1.0F) {
               // Segment intersects disc.
               intersections.push_back(p + t1 * v);
             }
 
-            if (t2 >= 0.0f && t2 < 1.0f) {
+            if (t2 >= 0.0F && t2 < 1.0F) {
               // Segment intersects disc.
               intersections.push_back(p + t2 * v);
             }
@@ -452,15 +453,14 @@ void Agent::computeNewVelocity(float timeStep) {
             absSq(cutoffCenter) <
                 velocityPlusCutoffRadius * velocityPlusCutoffRadius &&
             (absSq(boundary[0]) < rSq ||
-             left * leftOf(Vector2(), cutoffCenter, boundary[0]) > 0.0f);
+             left * leftOf(Vector2(), cutoffCenter, boundary[0]) > 0.0F);
 
         if (!cutoffInDisc) {
           if (!intersections.empty()) {
             // Line between first and last left intersection.
             line.direction =
-                static_cast<float>(left) *
-                normalize(intersections.back() - intersections.front());
-            line.point = 0.5f * intersections.front();
+                left * normalize(intersections.back() - intersections.front());
+            line.point = 0.5F * intersections.front();
             orcaLines_.push_back(line);
             continue;
           }
@@ -490,7 +490,7 @@ void Agent::computeNewVelocity(float timeStep) {
                 accelInterval_ * combinedMaxAccel, cutoffRadius, cutoffCenter);
 
             if (-left * leftOf(intersections.back(), cutoffCenter, p.first) >
-                0.0f) {
+                0.0F) {
               q = p.first;
             } else {
               q = p.second;
@@ -498,7 +498,7 @@ void Agent::computeNewVelocity(float timeStep) {
 
             line.direction =
                 static_cast<float>(left) * normalize(intersections.back() - q);
-            line.point = 0.5f * q;
+            line.point = 0.5F * q;
             orcaLines_.push_back(line);
             continue;
           }
@@ -513,13 +513,13 @@ void Agent::computeNewVelocity(float timeStep) {
 
     // Treat as convex obstacle.
     if (boundary.size() <= 1 ||
-        left * leftOf(cutoffCenter, boundary[0], Vector2()) >= 0.0f) {
+        left * leftOf(cutoffCenter, boundary[0], Vector2()) >= 0.0F) {
       // Project on cutoff center.
       const float wLength = abs(cutoffCenter);
       const Vector2 unitW = cutoffCenter / -wLength;
 
       line.direction = Vector2(unitW.y_, -unitW.x_);
-      line.point = 0.5f * (cutoffRadius - wLength) * unitW;
+      line.point = 0.5F * (cutoffRadius - wLength) * unitW;
       orcaLines_.push_back(line);
       continue;
     }
@@ -539,12 +539,12 @@ void Agent::computeNewVelocity(float timeStep) {
 
     line.direction = static_cast<float>(left) *
                      normalize(boundary[minSegment + 1] - boundary[minSegment]);
-    line.point = 0.5f * boundary[minSegment];
+    line.point = 0.5F * boundary[minSegment];
     orcaLines_.push_back(line);
   }
 
   if (linearProgram2(orcaLines_, maxAccel_ * accelInterval_,
-                     prefVelocity_ - velocity_, false, newVelocity_) == 0u) {
+                     prefVelocity_ - velocity_, false, newVelocity_) == 0U) {
     linearProgram3(orcaLines_, numObstLines, maxAccel_ * accelInterval_,
                    newVelocity_);
   }

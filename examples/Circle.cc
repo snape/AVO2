@@ -37,6 +37,7 @@
  */
 
 #include <cmath>
+#include <cstddef>
 
 #if AVO_OUTPUT_TIME_AND_POSITIONS
 #include <iostream>
@@ -46,12 +47,12 @@
 
 #include "AVO.h"
 
-const float AVO_TWO_PI = 6.283185307179586f;
+const float AVO_TWO_PI = 6.283185307179586F;
 
 bool haveReachedGoals(const AVO::Simulator &simulator,
                       const std::vector<AVO::Vector2> &goals) {
   for (std::size_t i = 0; i < simulator.getNumAgents(); ++i) {
-    if (AVO::absSq(simulator.getAgentPosition(i) - goals[i]) > 0.25f) {
+    if (AVO::absSq(simulator.getAgentPosition(i) - goals[i]) > 0.25F) {
       return false;
     }
   }
@@ -62,15 +63,16 @@ bool haveReachedGoals(const AVO::Simulator &simulator,
 int main() {
   AVO::Simulator simulator;
 
-  simulator.setTimeStep(0.25f);
-  simulator.setAgentDefaults(15.0f, 10, 10.0f, 1.5f, 4.0f, 2.0f, 2.0f);
+  simulator.setTimeStep(0.25F);
+  simulator.setAgentDefaults(15.0F, 10, 10.0F, 1.5F, 4.0F, 2.0F, 2.0F);
 
   std::vector<AVO::Vector2> goals;
 
   for (std::size_t i = 0; i < 250; ++i) {
     const AVO::Vector2 position =
-        200.0f * AVO::Vector2(std::cos(0.004f * i * AVO_TWO_PI),
-                              std::sin(0.004f * i * AVO_TWO_PI));
+        200.0F *
+        AVO::Vector2(std::cos(0.004F * static_cast<float>(i) * AVO_TWO_PI),
+                     std::sin(0.004F * static_cast<float>(i) * AVO_TWO_PI));
 
     simulator.addAgent(position);
     goals.push_back(-position);
@@ -90,7 +92,7 @@ int main() {
     for (std::size_t i = 0; i < simulator.getNumAgents(); ++i) {
       AVO::Vector2 toGoal = goals[i] - simulator.getAgentPosition(i);
 
-      if (AVO::absSq(toGoal) > 1.0f) {
+      if (AVO::absSq(toGoal) > 1.0F) {
         toGoal = normalize(toGoal);
       }
 

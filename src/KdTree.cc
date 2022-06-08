@@ -34,6 +34,7 @@
 #include "KdTree.h"
 
 #include <algorithm>
+#include <utility>
 
 #include "Agent.h"
 #include "Simulator.h"
@@ -82,8 +83,8 @@ void KdTree::buildAgentTreeRecursive(std::size_t begin, std::size_t end,
     const bool isVertical = (agentTree_[node].maxX - agentTree_[node].minX >
                              agentTree_[node].maxY - agentTree_[node].minY);
     const float splitValue =
-        (isVertical ? 0.5f * (agentTree_[node].maxX + agentTree_[node].minX)
-                    : 0.5f * (agentTree_[node].maxY + agentTree_[node].minY));
+        (isVertical ? 0.5F * (agentTree_[node].maxX + agentTree_[node].minX)
+                    : 0.5F * (agentTree_[node].maxY + agentTree_[node].minY));
 
     std::size_t left = begin;
     std::size_t right = end;
@@ -133,26 +134,26 @@ void KdTree::queryAgentTreeRecursive(Agent *agent, float &rangeSq,
     }
   } else {
     const float distLeftMinX = std::max(
-        0.0f, agentTree_[agentTree_[node].left].minX - agent->position_.x_);
+        0.0F, agentTree_[agentTree_[node].left].minX - agent->position_.x_);
     const float distLeftMaxX = std::max(
-        0.0f, agent->position_.x_ - agentTree_[agentTree_[node].left].maxX);
+        0.0F, agent->position_.x_ - agentTree_[agentTree_[node].left].maxX);
     const float distLeftMinY = std::max(
-        0.0f, agentTree_[agentTree_[node].left].minY - agent->position_.y_);
+        0.0F, agentTree_[agentTree_[node].left].minY - agent->position_.y_);
     const float distLeftMaxY = std::max(
-        0.0f, agent->position_.y_ - agentTree_[agentTree_[node].left].maxY);
+        0.0F, agent->position_.y_ - agentTree_[agentTree_[node].left].maxY);
 
     const float distSqLeft =
         distLeftMinX * distLeftMinX + distLeftMaxX * distLeftMaxX +
         distLeftMinY * distLeftMinY + distLeftMaxY * distLeftMaxY;
 
     const float distRightMinX = std::max(
-        0.0f, agentTree_[agentTree_[node].right].minX - agent->position_.x_);
+        0.0F, agentTree_[agentTree_[node].right].minX - agent->position_.x_);
     const float distRightMaxX = std::max(
-        0.0f, agent->position_.x_ - agentTree_[agentTree_[node].right].maxX);
+        0.0F, agent->position_.x_ - agentTree_[agentTree_[node].right].maxX);
     const float distRightMinY = std::max(
-        0.0f, agentTree_[agentTree_[node].right].minY - agent->position_.y_);
+        0.0F, agentTree_[agentTree_[node].right].minY - agent->position_.y_);
     const float distRightMaxY = std::max(
-        0.0f, agent->position_.y_ - agentTree_[agentTree_[node].right].maxY);
+        0.0F, agent->position_.y_ - agentTree_[agentTree_[node].right].maxY);
 
     const float distSqRight =
         distRightMinX * distRightMinX + distRightMaxX * distRightMaxX +

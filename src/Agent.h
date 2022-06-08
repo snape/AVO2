@@ -62,12 +62,17 @@ class Agent {
   Agent()
       : id_(0),
         maxNeighbors_(0),
-        accelInterval_(0.0f),
-        maxAccel_(0.0f),
-        maxSpeed_(0.0f),
-        neighborDist_(0.0f),
-        radius_(0.0f),
-        timeHorizon_(0.0f) {}
+        accelInterval_(0.0F),
+        maxAccel_(0.0F),
+        maxSpeed_(0.0F),
+        neighborDist_(0.0F),
+        radius_(0.0F),
+        timeHorizon_(0.0F) {}
+
+  /**
+   * \brief  Destructor.
+   */
+  ~Agent() {}
 
   /**
    * \brief      Computes the neighbors of this agent.
