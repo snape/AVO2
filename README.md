@@ -60,6 +60,8 @@ Reciprocal Collision Avoidance with Acceleration-Velocity Obstacles
 
 <https://gamma.cs.unc.edu/AVO/>
 
+[![DOI](https://zenodo.org/badge/130424630.svg)](https://zenodo.org/badge/latestdoi/130424630)
+
 We present an approach for collision avoidance for mobile robots that takes into
 account acceleration constraints. We discuss both the case of navigating a
 single robot among moving obstacles, and the case of multiple robots

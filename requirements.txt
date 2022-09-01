@@ -31,5 +31,6 @@
 # <https://gamma.cs.unc.edu/AVO/>
 #
 
+cffconvert
 cmakelang
 reuse

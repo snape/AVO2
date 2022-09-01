@@ -1,0 +1,270 @@
+# -*- mode: yaml; -*-
+# vi: set ft=yaml:
+
+# CITATION.cff
+# AVO2 Library
+#
+# SPDX-FileCopyrightText: 2010 University of North Carolina at Chapel Hill
+# SPDX-License-Identifier: CC-BY-SA-4.0
+#
+# Creative Commons Attribution-ShareAlike 4.0 International Public License
+#
+# You are free to:
+#
+# * Share — copy and redistribute the material in any medium or format
+#
+# * ShareAlike — If you remix, transform, or build upon the material, you must
+#   distribute your contributions under the same license as the original
+#
+# * Adapt — remix, transform, and build upon the material for any purpose, even
+#   commercially.
+#
+# The licensor cannot revoke these freedoms as long as you follow the license
+# terms.
+#
+# Under the following terms:
+#
+# * Attribution — You must give appropriate credit, provide a link to the
+#   license, and indicate if changes were made. You may do so in any reasonable
+#   manner, but not in any way that suggests the licensor endorses you or your
+#   use.
+#
+# * No additional restrictions — You may not apply legal terms or technological
+#   measures that legally restrict others from doing anything the license
+#   permits.
+#
+# Notices:
+#
+# * You do not have to comply with the license for elements of the material in
+#   the public domain or where your use is permitted by an applicable exception
+#   or limitation.
+#
+# * No warranties are given. The license may not give you all of the permissions
+#   necessary for your intended use. For example, other rights such as
+#   publicity, privacy, or moral rights may limit how you use the material.
+#
+# Please send all bug reports to <geom@cs.unc.edu>.
+#
+# The authors may be contacted via:
+#
+# Jur van den Berg, Jamie Snape, Stephen J. Guy, and Dinesh Manocha
+# Dept. of Computer Science
+# 201 S. Columbia St.
+# Frederick P. Brooks, Jr. Computer Science Bldg.
+# Chapel Hill, N.C. 27599-3175
+# United States of America
+#
+# <https://gamma.cs.unc.edu/AVO/>
+#
+
+---
+cff-version: 1.2.0
+abstract: >-
+  We present an approach for collision avoidance for mobile robots that takes
+  into account acceleration constraints. We discuss both the case of navigating
+  a single robot among moving obstacles, and the case of multiple robots
+  reciprocally avoiding collisions with each other while navigating a common
+  workspace. Inspired by the concept of velocity obstacles, we introduce the
+  acceleration-velocity obstacle (AVO) to let a robot avoid collisions with
+  moving obstacles while obeying acceleration constraints. AVO characterizes
+  the set of new velocities the robot can safely reach and adopt using
+  proportional control of the acceleration. We extend this concept to
+  reciprocal collision avoidance for multi-robot settings, by letting each
+  robot take half of the responsibility of avoiding pairwise collisions. Our
+  formulation guarantees collision-free navigation even as the robots act
+  independently and simultaneously, without coordination. Our approach is
+  designed for holonomic robots, but can also be applied to kinematically
+  constrained non-holonomic robots such as cars. We have implemented our
+  approach, and we show simulation results in challenging environments with
+  large numbers of robots and obstacles.
+authors:
+  - address: >-
+      201 S Columbia St, Frederick P. Brooks, Jr. Computer Science Bldg
+    affiliation: 'University of North Carolina at Chapel Hill'
+    city: 'Chapel Hill'
+    country: US
+    family-names: Berg
+    given-names: Jur
+    name-particle: 'van den'
+    post-code: 27599
+    region: NC
+  - address: >-
+      201 S Columbia St, Frederick P. Brooks, Jr. Computer Science Bldg
+    affiliation: 'University of North Carolina at Chapel Hill'
+    city: 'Chapel Hill'
+    country: US
+    family-names: Snape
+    given-names: Jamie
+    orcid: 'https://orcid.org/0000-0002-3326-9765'
+    post-code: 27599
+    region: NC
+    website: 'https://www.jamiesnape.io/'
+  - address: >-
+      201 S Columbia St, Frederick P. Brooks, Jr. Computer Science Bldg
+    affiliation: 'University of North Carolina at Chapel Hill'
+    city: 'Chapel Hill'
+    country: US
+    family-names: Guy
+    given-names: 'Stephen J.'
+    orcid: 'https://orcid.org/0000-0001-8986-5817'
+    post-code: 27599
+    region: NC
+    website: 'https://www-users.cse.umn.edu/~sjguy/'
+  - address: >-
+      201 S Columbia St, Frederick P. Brooks, Jr. Computer Science Bldg
+    affiliation: 'University of North Carolina at Chapel Hill'
+    city: 'Chapel Hill'
+    country: US
+    family-names: Manocha
+    given-names: Dinesh
+    orcid: 'https://orcid.org/0000-0001-7047-9801'
+    post-code: 27599
+    region: NC
+    website: 'https://www.cs.umd.edu/people/dmanocha/'
+identifiers:
+  - type: doi
+    value: '10.5281/zenodo.7039600'
+keywords:
+  - 'collision avoidance'
+  - 'mobile robots'
+  - 'motion planning'
+  - 'multi-robot systems'
+  - navigation
+license: 'Apache-2.0'
+message: >-
+  If you use this software, please cite it using the metadata from this file
+  and the metadata from 'preferred-citation'.
+preferred-citation:
+  abstract: >-
+    We present an approach for collision avoidance for mobile robots that takes
+    into account acceleration constraints. We discuss both the case of
+    navigating a single robot among moving obstacles, and the case of multiple
+    robots reciprocally avoiding collisions with each other while navigating a
+    common workspace. Inspired by the concept of velocity obstacles, we
+    introduce the acceleration-velocity obstacle (AVO) to let a robot avoid
+    collisions with moving obstacles while obeying acceleration constraints.
+    AVO characterizes the set of new velocities the robot can safely reach and
+    adopt using proportional control of the acceleration. We extend this
+    concept to reciprocal collision avoidance for multi-robot settings, by
+    letting each robot take half of the responsibility of avoiding pairwise
+    collisions. Our formulation guarantees collision-free navigation even as
+    the robots act independently and simultaneously, without coordination. Our
+    approach is designed for holonomic robots, but can also be applied to
+    kinematically constrained non-holonomic robots such as cars. We have
+    implemented our approach, and we show simulation results in challenging
+    environments with large numbers of robots and obstacles.
+  authors:
+    - address: >-
+        201 S Columbia St, Frederick P. Brooks, Jr. Computer Science Bldg
+      affiliation: 'University of North Carolina at Chapel Hill'
+      city: 'Chapel Hill'
+      country: US
+      family-names: Berg
+      given-names: Jur
+      name-particle: 'van den'
+      post-code: 27599
+      region: NC
+    - address: >-
+        201 S Columbia St, Frederick P. Brooks, Jr. Computer Science Bldg
+      affiliation: 'University of North Carolina at Chapel Hill'
+      city: 'Chapel Hill'
+      country: US
+      family-names: Snape
+      given-names: Jamie
+      orcid: 'https://orcid.org/0000-0002-3326-9765'
+      post-code: 27599
+      region: NC
+      website: 'https://www.jamiesnape.io/'
+    - address: >-
+        201 S Columbia St, Frederick P. Brooks, Jr. Computer Science Bldg
+      affiliation: 'University of North Carolina at Chapel Hill'
+      city: 'Chapel Hill'
+      country: US
+      family-names: Guy
+      given-names: 'Stephen J.'
+      orcid: 'https://orcid.org/0000-0001-8986-5817'
+      post-code: 27599
+      region: NC
+      website: 'https://www-users.cse.umn.edu/~sjguy/'
+    - address: >-
+        201 S Columbia St, Frederick P. Brooks, Jr. Computer Science Bldg
+      affiliation: 'University of North Carolina at Chapel Hill'
+      city: 'Chapel Hill'
+      country: US
+      family-names: Manocha
+      given-names: Dinesh
+      orcid: 'https://orcid.org/0000-0001-7047-9801'
+      post-code: 27599
+      region: NC
+      website: 'https://www.cs.umd.edu/people/dmanocha/'
+  conference:
+    address: >-
+      Shanghai International Convention Center, 2727 Binjiang Avenue, Pudong
+      New Area
+    city: Shanghai
+    country: CN
+    date-end: '2011-05-09'
+    date-start: '2011-05-13'
+    name: '2011 IEEE International Conference on Robotics and Automation (ICRA)'
+    post-code: 200120
+  contact:
+    - address: >-
+        201 S Columbia St, Frederick P. Brooks, Jr. Computer Science Bldg
+      affiliation: 'University of North Carolina at Chapel Hill'
+      city: 'Chapel Hill'
+      country: US
+      family-names: Snape
+      given-names: Jamie
+      orcid: 'https://orcid.org/0000-0002-3326-9765'
+      post-code: 27599
+      region: NC
+      website: 'https://www.jamiesnape.io/'
+  collection-doi: '10.1109/ICRA11042.2010'
+  collection-title: >-
+    Proceedings of the 2011 IEEE International Conference on Robotics and
+    Automation (ICRA)
+  collection-type: proceedings
+  copyright: >-
+    Copyright © 2011 Institute of Electrical and Electronics Engineers
+  date-published: '2011-08-18'
+  editors:
+    - address: 'Centro di Ricerca  "E. Piaggio", Largo Lucio Lazzarino 1'
+      affiliation: 'Università di Pisa'
+      city: Pisa
+      country: IT
+      family-names: Bicchi
+      given-names: Antonio
+      orcid: 'https://orcid.org/0000-0001-8635-5571'
+      post-code: 56122
+  end: 3482
+  identifiers:
+    - type: doi
+      value: '10.1109/ICRA.2011.5980408'
+  isbn: '978-1-61284-386-5'
+  issn: '1050-4729'
+  keywords:
+    - 'collision avoidance'
+    - 'mobile robots'
+    - 'motion planning'
+    - 'multi-robot systems'
+    - navigation
+  publisher:
+    address: '3 Park Ave 17th Fl'
+    city: 'New York'
+    country: US
+    name: 'Institute of Electrical and Electronics Engineers'
+    post-code: 10016
+    region: NY
+  languages:
+    - en
+  month: 5
+  pages: 8
+  start: 3475
+  title: 'Reciprocal Collision Avoidance with Acceleration-Velocity Obstacles'
+  type: 'conference-paper'
+  url: 'https://gamma.cs.unc.edu/AVO/'
+  year: 2011
+repository-code: 'https://github.com/snape/AVO2'
+title: 'Reciprocal Collision Avoidance with Acceleration-Velocity Obstacles'
+type: software
+url: 'https://gamma.cs.unc.edu/AVO/'
