@@ -1,8 +1,5 @@
-# -*- mode: bazel; -*-
-# vi: set ft=bazel:
-
 #
-# examples/BUILD.bazel
+# .bazelrc
 # AVO2 Library
 #
 # SPDX-FileCopyrightText: 2010 University of North Carolina at Chapel Hill
@@ -34,18 +31,11 @@
 # <https://gamma.cs.unc.edu/AVO/>
 #
 
-load("@rules_cc//cc:defs.bzl", "cc_test")
+build --enable_platform_specific_config=true
+build --force_pic=true
+build --legacy_external_runfiles=false
 
-package(default_applicable_licenses = ["//:license"])
+build:macos --apple_generate_dsym=true
+build:macos --apple_platform_type=macos
 
-licenses(["notice"])  # Apache-2.0
-
-cc_test(
-    name = "Circle",
-    size = "medium",
-    srcs = ["Circle.cc"],
-    defines = ["AVO_OUTPUT_TIME_AND_POSITIONS=0"],
-    tags = ["block-network"],
-    visibility = ["//visibility:private"],
-    deps = ["//src:AVO"],
-)
+try-import %workspace%/.user.bazelrc
