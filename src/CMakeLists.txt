@@ -43,6 +43,7 @@ set(AVO_HEADERS
 set(AVO_SOURCES
   Agent.cc
   Agent.h
+  Export.cc
   KdTree.cc
   KdTree.h
   Line.cc
