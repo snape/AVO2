@@ -42,8 +42,36 @@
 
 namespace AVO {
 namespace {
-const std::size_t AVO_MAX_LEAF_SIZE = 10;
+const std::size_t AVO_MAX_LEAF_SIZE = 10U;
 }  // namespace
+
+class KdTree::AgentTreeNode {
+ public:
+  AgentTreeNode();
+
+  std::size_t begin;
+  std::size_t end;
+  std::size_t left;
+  std::size_t right;
+  float maxX;
+  float maxY;
+  float minX;
+  float minY;
+};
+
+KdTree::AgentTreeNode::AgentTreeNode()
+    : begin(0U),
+      end(0U),
+      left(0U),
+      right(0U),
+      maxX(0.0F),
+      maxY(0.0F),
+      minX(0.0F),
+      minY(0.0F) {}
+
+KdTree::KdTree(Simulator *simulator) : simulator_(simulator) {}
+
+KdTree::~KdTree() {}
 
 void KdTree::buildAgentTree() {
   if (agents_.size() < simulator_->agents_.size()) {
@@ -52,11 +80,11 @@ void KdTree::buildAgentTree() {
       agents_.push_back(simulator_->agents_[agentNo]);
     }
 
-    agentTree_.resize(2 * agents_.size() - 1);
+    agentTree_.resize(2U * agents_.size() - 1U);
   }
 
   if (!agents_.empty()) {
-    buildAgentTreeRecursive(0, agents_.size(), 0);
+    buildAgentTreeRecursive(0U, agents_.size(), 0U);
   }
 }
 
@@ -67,7 +95,7 @@ void KdTree::buildAgentTreeRecursive(std::size_t begin, std::size_t end,
   agentTree_[node].minX = agentTree_[node].maxX = agents_[begin]->position_.x_;
   agentTree_[node].minY = agentTree_[node].maxY = agents_[begin]->position_.y_;
 
-  for (std::size_t i = begin + 1; i < end; ++i) {
+  for (std::size_t i = begin + 1U; i < end; ++i) {
     agentTree_[node].maxX =
         std::max(agentTree_[node].maxX, agents_[i]->position_.x_);
     agentTree_[node].minX =
@@ -80,11 +108,11 @@ void KdTree::buildAgentTreeRecursive(std::size_t begin, std::size_t end,
 
   if (end - begin > AVO_MAX_LEAF_SIZE) {
     // No leaf node.
-    const bool isVertical = (agentTree_[node].maxX - agentTree_[node].minX >
-                             agentTree_[node].maxY - agentTree_[node].minY);
+    const bool isVertical = agentTree_[node].maxX - agentTree_[node].minX >
+                            agentTree_[node].maxY - agentTree_[node].minY;
     const float splitValue =
-        (isVertical ? 0.5F * (agentTree_[node].maxX + agentTree_[node].minX)
-                    : 0.5F * (agentTree_[node].maxY + agentTree_[node].minY));
+        isVertical ? 0.5F * (agentTree_[node].maxX + agentTree_[node].minX)
+                   : 0.5F * (agentTree_[node].maxY + agentTree_[node].minY);
 
     std::size_t left = begin;
     std::size_t right = end;
@@ -97,13 +125,13 @@ void KdTree::buildAgentTreeRecursive(std::size_t begin, std::size_t end,
       }
 
       while (right > left &&
-             (isVertical ? agents_[right - 1]->position_.x_
-                         : agents_[right - 1]->position_.y_) >= splitValue) {
+             (isVertical ? agents_[right - 1U]->position_.x_
+                         : agents_[right - 1U]->position_.y_) >= splitValue) {
         --right;
       }
 
       if (left < right) {
-        std::swap(agents_[left], agents_[right - 1]);
+        std::swap(agents_[left], agents_[right - 1U]);
         ++left;
         --right;
       }
@@ -111,18 +139,22 @@ void KdTree::buildAgentTreeRecursive(std::size_t begin, std::size_t end,
 
     std::size_t leftSize = left - begin;
 
-    if (leftSize == 0) {
+    if (leftSize == 0U) {
       ++leftSize;
       ++left;
       ++right;
     }
 
-    agentTree_[node].left = node + 1;
-    agentTree_[node].right = node + 1 + (2 * leftSize - 1);
+    agentTree_[node].left = node + 1U;
+    agentTree_[node].right = node + 1U + (2U * leftSize - 1U);
 
     buildAgentTreeRecursive(begin, left, agentTree_[node].left);
     buildAgentTreeRecursive(left, end, agentTree_[node].right);
   }
+}
+
+void KdTree::computeAgentNeighbors(Agent *agent, float &rangeSq) const {
+  queryAgentTreeRecursive(agent, rangeSq, 0U);
 }
 
 void KdTree::queryAgentTreeRecursive(Agent *agent, float &rangeSq,

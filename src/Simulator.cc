@@ -39,7 +39,7 @@
 
 #ifdef _OPENMP
 #include <omp.h>
-#endif
+#endif  // _OPENMP
 
 #include "Agent.h"
 #include "KdTree.h"
@@ -56,7 +56,7 @@ Simulator::Simulator()
 Simulator::~Simulator() {
   delete defaultAgent_;
 
-  for (std::size_t agentNo = 0; agentNo < agents_.size(); ++agentNo) {
+  for (std::size_t agentNo = 0U; agentNo < agents_.size(); ++agentNo) {
     delete agents_[agentNo];
   }
 
@@ -83,7 +83,7 @@ std::size_t Simulator::addAgent(const Vector2 &position) {
 
   agents_.push_back(agent);
 
-  return agents_.size() - 1;
+  return agents_.size() - 1U;
 }
 
 std::size_t Simulator::addAgent(const Vector2 &position, float neighborDist,
@@ -110,7 +110,7 @@ std::size_t Simulator::addAgent(const Vector2 &position, float neighborDist,
 
   agents_.push_back(agent);
 
-  return agents_.size() - 1;
+  return agents_.size() - 1U;
 }
 
 std::size_t Simulator::addAgent(const Vector2 &position, float neighborDist,
@@ -138,7 +138,7 @@ std::size_t Simulator::addAgent(const Vector2 &position, float neighborDist,
 
   agents_.push_back(agent);
 
-  return agents_.size() - 1;
+  return agents_.size() - 1U;
 }
 
 void Simulator::doStep() {
@@ -146,7 +146,7 @@ void Simulator::doStep() {
 
 #ifdef _OPENMP
 #pragma omp parallel for
-#endif
+#endif  // _OPENMP
   for (int agentNo = 0; agentNo < static_cast<int>(agents_.size()); ++agentNo) {
     agents_[agentNo]->computeNeighbors(kdTree_);
     agents_[agentNo]->computeNewVelocity(timeStep_);
@@ -154,7 +154,7 @@ void Simulator::doStep() {
 
 #ifdef _OPENMP
 #pragma omp parallel for
-#endif
+#endif  // _OPENMP
   for (int agentNo = 0; agentNo < static_cast<int>(agents_.size()); ++agentNo) {
     agents_[agentNo]->update(timeStep_);
   }

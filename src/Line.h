@@ -35,8 +35,8 @@
 #define AVO_LINE_H_
 
 /**
- * \file   Line.h
- * \brief  Declares the Line class.
+ * @file  Line.h
+ * @brief Declares the Line class.
  */
 
 #include "Export.h"
@@ -44,22 +44,17 @@
 
 namespace AVO {
 /**
- *  \brief  A directed line.
+ *  @brief A directed line.
  */
 class AVO_EXPORT Line {
  public:
   /**
-   *  \brief  Constructor.
-   */
-  Line() {}
-
-  /**
-   *  \brief  The direction of the directed line.
+   *  @brief The direction of the directed line.
    */
   Vector2 direction;
 
   /**
-   *  \brief  A point on the directed line.
+   *  @brief A point on the directed line.
    */
   Vector2 point;
 };

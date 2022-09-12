@@ -35,40 +35,43 @@
 #define AVO_AVO_H_
 
 /**
- * \file   AVO.h
- * \brief  Includes all public headers.
+ * @file  AVO.h
+ * @brief Includes all public headers.
  */
 
 /**
- * \namespace  AVO
- * \brief      Contains all classes and functions.
+ * @namespace AVO
+ * @brief     Contains all classes and functions.
  */
 
 /**
- * \mainpage   AVO2 Library Documentation
- * \authors    Jur van den Berg, Jamie Snape, Stephen J. Guy, Dinesh Manocha
- * \copyright  2010 University of North Carolina at Chapel Hill.
+ * @mainpage  AVO2 Library Documentation
+ * @author    Jur van den Berg
+ * @author    Jamie Snape
+ * @author    Stephen J. Guy
+ * @author    Dinesh Manocha
+ * @copyright 2010 University of North Carolina at Chapel Hill.
  *
- * \details    We present an approach for collision avoidance for mobile robots
- *             that takes into account acceleration constraints. We discuss both
- *             the case of navigating a single robot among moving obstacles, and
- *             the case of multiple robots reciprocally avoiding collisions with
- *             each other while navigating a common workspace. Inspired by the
- *             concept of velocity obstacles, we introduce the
- *             acceleration-velocity obstacle to let a robot avoid collisions
- *             with moving obstacles while obeying acceleration constraints. AVO
- *             characterizes the set of new velocities the robot can safely
- *             reach and adopt using proportional control of the acceleration.
- *             We extend this concept to reciprocal collision avoidance for
- *             multi-robot settings, by letting each robot take half of the
- *             responsibility of avoiding pairwise collisions. Our formulation
- *             guarantees collision-free navigation even as the robots act
- *             independently and simultaneously, without coordination. Our
- *             approach is designed for holonomic robots, but can also be
- *             applied to kinematically constrained non-holonomic robots such as
- *             cars. We have implemented our approach, and we show simulation
- *             results in challenging environments with large numbers of robots
- *             and obstacles.
+ * @details   We present an approach for collision avoidance for mobile robots
+ *            that takes into account acceleration constraints. We discuss both
+ *            the case of navigating a single robot among moving obstacles, and
+ *            the case of multiple robots reciprocally avoiding collisions with
+ *            each other while navigating a common workspace. Inspired by the
+ *            concept of velocity obstacles, we introduce the
+ *            acceleration-velocity obstacle to let a robot avoid collisions
+ *            with moving obstacles while obeying acceleration constraints. AVO
+ *            characterizes the set of new velocities the robot can safely reach
+ *            and adopt using proportional control of the acceleration. We
+ *            extend this concept to reciprocal collision avoidance for
+ *            multi-robot settings, by letting each robot take half of the
+ *            responsibility of avoiding pairwise collisions. Our formulation
+ *            guarantees collision-free navigation even as the robots act
+ *            independently and simultaneously, without coordination. Our
+ *            approach is designed for holonomic robots, but can also be applied
+ *            to kinematically constrained non-holonomic robots such as cars.
+ *            We have implemented our approach, and we show simulation results
+ *            in challenging environments with large numbers of robots and
+ *            obstacles.
  */
 
 // IWYU pragma: begin_exports

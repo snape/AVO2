@@ -35,8 +35,8 @@
 #define AVO_AGENT_H_
 
 /**
- * \file   Agent.h
- * \brief  Declares the Agent class.
+ * @file  Agent.h
+ * @brief Declares the Agent class.
  */
 
 #include <cstddef>
@@ -51,56 +51,45 @@ namespace AVO {
 class KdTree;
 
 /**
- * \class  Agent
- * \brief  An agent in the simulation.
+ * @brief An agent in the simulation.
  */
 class Agent {
  private:
   /**
-   * \brief  Constructor.
+   * @brief Constructor.
    */
-  Agent()
-      : id_(0),
-        maxNeighbors_(0),
-        accelInterval_(0.0F),
-        maxAccel_(0.0F),
-        maxSpeed_(0.0F),
-        neighborDist_(0.0F),
-        radius_(0.0F),
-        timeHorizon_(0.0F) {}
+  Agent();
 
   /**
-   * \brief  Destructor.
+   * @brief Destructor.
    */
-  ~Agent() {}
+  ~Agent();
 
   /**
-   * \brief      Computes the neighbors of this agent.
-   * \param[in]  kdTree  A k-D tree containing the neighbors.
+   * @brief     Computes the neighbors of this agent.
+   * @param[in] kdTree A k-D tree containing the neighbors.
    */
   void computeNeighbors(const KdTree *kdTree);
 
   /**
-   * \brief      Computes the new velocity of this agent.
-   * \param[in]  timeStep  The time step of the simulation.
+   * @brief     Computes the new velocity of this agent.
+   * @param[in] timeStep The time step of the simulation.
    */
   void computeNewVelocity(float timeStep);
 
   /**
-   * \brief          Inserts a neighbor into the set of neighbors of this agent.
-   * \param[in]      agent    The agent to be inserted.
-   * \param[in,out]  rangeSq  The squared range around this agent.
+   * @brief         Inserts a neighbor into the set of neighbors of this agent.
+   * @param[in]     agent   The agent to be inserted.
+   * @param[in,out] rangeSq The squared range around this agent.
    */
-  void insertAgentNeighbor(const Agent *agent, float &rangeSq);
+  void insertAgentNeighbor(const Agent *agent,
+                           float &rangeSq);  // NOLINT(runtime/references)
 
   /**
-   * \brief      Updates the position and velocity of this agent.
-   * \param[in]  timeStep  The time step of the simulation.
+   * @brief     Updates the position and velocity of this agent.
+   * @param[in] timeStep The time step of the simulation.
    */
-  void update(float timeStep) {
-    velocity_ = newVelocity_;
-    position_ += velocity_ * timeStep;
-  }
+  void update(float timeStep);
 
   // Not implemented.
   Agent(const Agent &other);

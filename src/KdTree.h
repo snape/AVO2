@@ -35,8 +35,8 @@
 #define AVO_KD_TREE_H_
 
 /**
- * \file   KdTree.h
- * \brief  Declares the KdTree class.
+ * @file  KdTree.h
+ * @brief Declares the KdTree class.
  */
 
 #include <cstddef>
@@ -46,116 +46,57 @@ namespace AVO {
 class Agent;
 class Simulator;
 
-/**
- * \class  KdTree
- * \brief  k-D tree for agents in the simulation.
+/*
+ * @brief k-D tree for agents in the simulation.
  */
 class KdTree {
  private:
+  class AgentTreeNode;
+
   /**
-   * \class  AgentTreeNode
-   * \brief  A k-D tree node.
+   * @brief     Constructor.
+   * @param[in] simulator The simulation.
    */
-  class AgentTreeNode {
-   public:
-    /**
-     * \brief  Constructor.
-     */
-    AgentTreeNode()
-        : begin(0),
-          end(0),
-          left(0),
-          right(0),
-          maxX(0.0F),
-          maxY(0.0F),
-          minX(0.0F),
-          minY(0.0F) {}
-
-    /**
-     * \brief  The beginning node number.
-     */
-    std::size_t begin;
-
-    /**
-     * \brief  The ending node number.
-     */
-    std::size_t end;
-
-    /**
-     * \brief  The left node number.
-     */
-    std::size_t left;
-
-    /**
-     * \brief  The right node number.
-     */
-    std::size_t right;
-
-    /**
-     * \brief  The maximum x-coordinate.
-     */
-    float maxX;
-
-    /**
-     * \brief  The maximum y-coordinate.
-     */
-    float maxY;
-
-    /**
-     * \brief  The minimum x-coordinate.
-     */
-    float minX;
-
-    /**
-     * \brief  The minimum y-coordinate.
-     */
-    float minY;
-  };
+  explicit KdTree(Simulator *simulator);
 
   /**
-   * \brief      Constructor.
-   * \param[in]  simulator  The simulation.
+   * @brief Destructor.
    */
-  explicit KdTree(Simulator *simulator) : simulator_(simulator) {}
+  ~KdTree();
 
   /**
-   * \brief  Destructor.
-   */
-  ~KdTree() {}
-
-  /**
-   * \brief  Builds an agent k-D tree.
+   * @brief Builds an agent k-D tree.
    */
   void buildAgentTree();
 
   /**
-   * \brief      Recursive function to build a k-D tree.
-   * \param[in]  begin  The beginning k-D tree node.
-   * \param[in]  end    The ending k-D tree node.
-   * \param[in]  node   The current k-D tree node.
+   * @brief     Recursive function to build a k-D tree.
+   * @param[in] begin The beginning k-D tree node.
+   * @param[in] end   The ending k-D tree node.
+   * @param[in] node  The current k-D tree node.
    */
   void buildAgentTreeRecursive(std::size_t begin, std::size_t end,
                                std::size_t node);
 
   /**
-   * \brief      Computes the neighbors of the specified agent.
-   * \param[in]  agent    A pointer to the agent for which neighbors are to be
-   *                      computed.
-   * \param[in]  rangeSq  The squared range around the agent.
+   * @brief     Computes the neighbors of the specified agent.
+   * @param[in] agent   A pointer to the agent for which neighbors are to be
+   *                    computed.
+   * @param[in] rangeSq The squared range around the agent.
    */
-  void computeAgentNeighbors(Agent *agent, float &rangeSq) const {
-    queryAgentTreeRecursive(agent, rangeSq, 0);
-  }
+  void computeAgentNeighbors(
+      Agent *agent, float &rangeSq) const;  // NOLINT(runtime/references)
 
   /**
-   * \brief          Recursive function to compute the neighbors of the
-   *                 specified agent.
-   * \param[in]      agent    A pointer to the agent for which neighbors are to
-   *                          be computed.
-   * \param[in,out]  rangeSq  The squared range around the agent.
-   * \param[in]      node     The current k-D tree node.
+   * @brief         Recursive function to compute the neighbors of the specified
+   *                agent.
+   * @param[in]     agent   A pointer to the agent for which neighbors are to be
+   *                        computed.
+   * @param[in,out] rangeSq The squared range around the agent.
+   * @param[in]     node    The current k-D tree node.
    */
-  void queryAgentTreeRecursive(Agent *agent, float &rangeSq,
+  void queryAgentTreeRecursive(Agent *agent,
+                               float &rangeSq,  // NOLINT(runtime/references)
                                std::size_t node) const;
 
   // Not implemented.

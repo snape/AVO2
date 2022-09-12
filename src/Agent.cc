@@ -41,7 +41,7 @@
 
 namespace AVO {
 namespace {
-const std::size_t AVO_MAX_STEPS = 100;
+const std::size_t AVO_MAX_STEPS = 100U;
 
 Vector2 tangentPoint(const Vector2 &p, float r) {
   const float pLengthSq = absSq(p);
@@ -80,7 +80,7 @@ std::pair<Vector2, Vector2> circleCircleIntersection(float R, float r,
 
   const float xNum = pxSq * pxSq + pxSq * pySq - pxSq * rSq + pxSq * RSq;
   const float yNum = pxSq * p.y_ + p.y_ * pySq - p.y_ * rSq + p.y_ * RSq;
-  const float yDenom = 2 * (pxSq + pySq);
+  const float yDenom = 2.0F * (pxSq + pySq);
   const float xDenom = yDenom * p.x_;
 
   return std::make_pair(Vector2((xNum - p.y_ * squareRoot) / xDenom,
@@ -114,7 +114,7 @@ float radiusAVO(float r, float delta, float t) {
 
 bool linearProgram1(const std::vector<Line> &lines, std::size_t lineNo,
                     float radius, const Vector2 &optVelocity, bool directionOpt,
-                    Vector2 &result) {
+                    Vector2 &result) {  // NOLINT(runtime/references)
   const float dotProduct = lines[lineNo].point * lines[lineNo].direction;
   const float discriminant =
       dotProduct * dotProduct + radius * radius - absSq(lines[lineNo].point);
@@ -128,7 +128,7 @@ bool linearProgram1(const std::vector<Line> &lines, std::size_t lineNo,
   float tLeft = -dotProduct - sqrtDiscriminant;
   float tRight = -dotProduct + sqrtDiscriminant;
 
-  for (std::size_t i = 0; i < lineNo; ++i) {
+  for (std::size_t i = 0U; i < lineNo; ++i) {
     const float denominator = det(lines[lineNo].direction, lines[i].direction);
     const float numerator =
         det(lines[i].direction, lines[lineNo].point - lines[i].point);
@@ -184,7 +184,7 @@ bool linearProgram1(const std::vector<Line> &lines, std::size_t lineNo,
 
 std::size_t linearProgram2(const std::vector<Line> &lines, float radius,
                            const Vector2 &optVelocity, bool directionOpt,
-                           Vector2 &result) {
+                           Vector2 &result) {  // NOLINT(runtime/references)
   if (directionOpt) {
     // Optimize direction. The optimization velocity is of unit length in this
     // case.
@@ -197,7 +197,7 @@ std::size_t linearProgram2(const std::vector<Line> &lines, float radius,
     result = optVelocity;
   }
 
-  for (std::size_t lineNo = 0; lineNo < lines.size(); ++lineNo) {
+  for (std::size_t lineNo = 0U; lineNo < lines.size(); ++lineNo) {
     if (det(lines[lineNo].direction, lines[lineNo].point - result) > 0.0F) {
       // Result does not satisfy constraint i. Compute new optimal result.
       const Vector2 tempResult = result;
@@ -214,7 +214,8 @@ std::size_t linearProgram2(const std::vector<Line> &lines, float radius,
 }
 
 void linearProgram3(const std::vector<Line> &lines, std::size_t numObstLines,
-                    float radius, Vector2 &result) {
+                    float radius,
+                    Vector2 &result) {  // NOLINT(runtime/references)
   float distance = 0.0F;
 
   for (std::size_t lineNo = numObstLines; lineNo < lines.size(); ++lineNo) {
@@ -270,10 +271,22 @@ void linearProgram3(const std::vector<Line> &lines, std::size_t numObstLines,
 }
 }  // namespace
 
+Agent::Agent()
+    : id_(0U),
+      maxNeighbors_(0U),
+      accelInterval_(0.0F),
+      maxAccel_(0.0F),
+      maxSpeed_(0.0F),
+      neighborDist_(0.0F),
+      radius_(0.0F),
+      timeHorizon_(0.0F) {}
+
+Agent::~Agent() {}
+
 void Agent::computeNeighbors(const KdTree *kdTree) {
   agentNeighbors_.clear();
 
-  if (maxNeighbors_ > 0) {
+  if (maxNeighbors_ > 0U) {
     float rangeSq = neighborDist_ * neighborDist_;
     kdTree->computeAgentNeighbors(this, rangeSq);
   }
@@ -303,7 +316,7 @@ void Agent::computeNewVelocity(float timeStep) {
   Line line;
 
   // Create agent ORCA lines.
-  for (std::size_t agentNo = 0; agentNo < agentNeighbors_.size(); ++agentNo) {
+  for (std::size_t agentNo = 0U; agentNo < agentNeighbors_.size(); ++agentNo) {
     const Agent *const other = agentNeighbors_[agentNo].second;
 
     const Vector2 relativePosition = position_ - other->position_;
@@ -372,14 +385,14 @@ void Agent::computeNewVelocity(float timeStep) {
                           determinant * determinant;
 
       if (discr >= 0.0F) {
-        convex = (std::sqrt(discr) - relativePosition * relativeVelocity >= 0);
+        convex = std::sqrt(discr) - relativePosition * relativeVelocity >= 0.0F;
       } else {
         convex = false;
       }
 
       float lastTime = timeStep;
 
-      for (std::size_t i = 0; i <= AVO_MAX_STEPS; ++i) {
+      for (std::size_t i = 0U; i <= AVO_MAX_STEPS; ++i) {
         const float t = timeStep + static_cast<float>(i) *
                                        (timeHorizon_ - timeStep) /
                                        AVO_MAX_STEPS;
@@ -394,7 +407,7 @@ void Agent::computeNewVelocity(float timeStep) {
           convex = true;
           break;
         }
-        if (convex && i >= 2 &&
+        if (convex && i >= 2U &&
             left * leftOf(boundary[0], boundary[1], boundary[2]) >
                 AVO_EPSILON) {
           // Failed to detect undefined part of boundary, and now running into
@@ -504,7 +517,7 @@ void Agent::computeNewVelocity(float timeStep) {
           }
           boundary[0] = q;
           boundary[1] = intersections.back();
-          boundary.erase(boundary.begin() + 2, boundary.end());
+          boundary.erase(boundary.begin() + 2U, boundary.end());
         } else {
           boundary.clear();
         }
@@ -512,7 +525,7 @@ void Agent::computeNewVelocity(float timeStep) {
     }
 
     // Treat as convex obstacle.
-    if (boundary.size() <= 1 ||
+    if (boundary.size() <= 1U ||
         left * leftOf(cutoffCenter, boundary[0], Vector2()) >= 0.0F) {
       // Project on cutoff center.
       const float wLength = abs(cutoffCenter);
@@ -525,7 +538,7 @@ void Agent::computeNewVelocity(float timeStep) {
     }
     // Find closest point on boundary.
     float minDistSq = std::numeric_limits<float>::infinity();
-    std::size_t minSegment = 0;
+    std::size_t minSegment = 0U;
 
     for (int i = 0; i < static_cast<int>(boundary.size()) - 1; ++i) {
       const float distSq =
@@ -537,8 +550,9 @@ void Agent::computeNewVelocity(float timeStep) {
       }
     }
 
-    line.direction = static_cast<float>(left) *
-                     normalize(boundary[minSegment + 1] - boundary[minSegment]);
+    line.direction =
+        static_cast<float>(left) *
+        normalize(boundary[minSegment + 1U] - boundary[minSegment]);
     line.point = 0.5F * boundary[minSegment];
     orcaLines_.push_back(line);
   }
@@ -561,10 +575,10 @@ void Agent::insertAgentNeighbor(const Agent *agent, float &rangeSq) {
         agentNeighbors_.push_back(std::make_pair(distSq, agent));
       }
 
-      std::size_t agentNo = agentNeighbors_.size() - 1;
+      std::size_t agentNo = agentNeighbors_.size() - 1U;
 
-      while (agentNo != 0 && distSq < agentNeighbors_[agentNo - 1].first) {
-        agentNeighbors_[agentNo] = agentNeighbors_[agentNo - 1];
+      while (agentNo != 0 && distSq < agentNeighbors_[agentNo - 1U].first) {
+        agentNeighbors_[agentNo] = agentNeighbors_[agentNo - 1U];
         --agentNo;
       }
 
@@ -576,4 +590,10 @@ void Agent::insertAgentNeighbor(const Agent *agent, float &rangeSq) {
     }
   }
 }
+
+void Agent::update(float timeStep) {
+  velocity_ = newVelocity_;
+  position_ += velocity_ * timeStep;
+}
+
 }  // namespace AVO
