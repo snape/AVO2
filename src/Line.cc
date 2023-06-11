@@ -32,3 +32,7 @@
  */
 
 #include "Line.h"
+
+namespace AVO {
+Line::Line() {}
+}  // namespace AVO

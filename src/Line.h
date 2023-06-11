@@ -44,17 +44,22 @@
 
 namespace AVO {
 /**
- *  @brief A directed line.
+ * @brief A directed line.
  */
 class AVO_EXPORT Line {
  public:
   /**
-   *  @brief The direction of the directed line.
+   * @brief Constructor.
+   */
+  Line();
+
+  /**
+   * @brief The direction of the directed line.
    */
   Vector2 direction;
 
   /**
-   *  @brief A point on the directed line.
+   * @brief A point on the directed line.
    */
   Vector2 point;
 };
