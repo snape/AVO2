@@ -170,6 +170,7 @@ pkg_deb(
     package = "avo",
     priority = "optional",
     section = "libdevel",
+    triggers = "triggers",
     version = "1.0.1",
     visibility = ["//visibility:private"],
 )
