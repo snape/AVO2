@@ -34,86 +34,90 @@
 # <https://gamma.cs.unc.edu/AVO/>
 #
 
-set(AVO_HEADERS
-  AVO.h
-  Line.h
-  Simulator.h
-  Vector2.h)
-
-set(AVO_SOURCES
-  Agent.cc
-  Agent.h
-  Export.cc
-  KdTree.cc
-  KdTree.h
-  Line.cc
-  Simulator.cc
-  Vector2.cc)
-
-add_library(${AVO_LIBRARY} ${AVO_HEADERS} ${AVO_SOURCES})
+add_library(${AVO_LIBRARY})
 
 include(GenerateExportHeader)
 
-generate_export_header(${AVO_LIBRARY} EXPORT_FILE_NAME Export.h)
+generate_export_header(${AVO_LIBRARY}
+  EXPORT_FILE_NAME Export.h)
+
+target_sources(${AVO_LIBRARY}
+  PUBLIC
+    FILE_SET HEADERS
+    BASE_DIRS
+      "${CMAKE_CURRENT_BINARY_DIR}"
+      "${CMAKE_CURRENT_SOURCE_DIR}"
+    FILES
+      "${CMAKE_CURRENT_BINARY_DIR}/Export.h"
+      AVO.h
+      Line.h
+      Simulator.h
+      Vector2.h
+    PRIVATE
+      Agent.cc
+      Agent.h
+      Export.cc
+      KdTree.cc
+      KdTree.h
+      Line.cc
+      Simulator.cc
+      Vector2.cc)
 
 set_target_properties(${AVO_LIBRARY} PROPERTIES
   CXX_VISIBILITY_PRESET hidden
-  PUBLIC_HEADER "${AVO_HEADERS}"
   SOVERSION ${PROJECT_VERSION_MAJOR}
   VERSION ${PROJECT_VERSION}
   VISIBILITY_INLINES_HIDDEN ON)
 
 if(ENABLE_INTERPROCEDURAL_OPTIMIZATION
-    AND RVO_INTERPROCEDURAL_OPTIMIZATION_SUPPORTED)
+    AND AVO_INTERPROCEDURAL_OPTIMIZATION_SUPPORTED)
   set_target_properties(${AVO_LIBRARY} PROPERTIES
     INTERPROCEDURAL_OPTIMIZATION ON)
 endif()
-
-target_include_directories(${AVO_LIBRARY} PUBLIC
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>)
 
 if(WIN32)
   target_compile_definitions(${AVO_LIBRARY} PUBLIC NOMINMAX)
 endif()
 
 if(ENABLE_OPENMP AND OpenMP_FOUND)
-  set_target_properties(${AVO_LIBRARY} PROPERTIES
-    LINK_FLAGS "${OpenMP_CXX_FLAGS}")
-  target_compile_options(${AVO_LIBRARY} PRIVATE ${OpenMP_CXX_FLAGS})
+  target_link_libraries(${AVO_LIBRARY} PRIVATE OpenMP::OpenMP_CXX)
 endif()
 
 export(TARGETS ${AVO_LIBRARY} NAMESPACE ${PROJECT_NAME}::
   FILE "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Targets.cmake")
-
-if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.12)
-  set(AVO_NAMELINK_COMPONENT_ARGUMENT NAMELINK_COMPONENT development)
-else()
-  set(AVO_NAMELINK_COMPONENT_ARGUMENT)
-endif()
 
 install(TARGETS ${AVO_LIBRARY}
   EXPORT ${PROJECT_NAME}Targets
   ARCHIVE
     COMPONENT development
     DESTINATION ${AVO_LIBRARY_DIR}
+    FILE_SET HEADERS
+    COMPONENT development
+    DESTINATION ${AVO_INCLUDE_DIR}
   LIBRARY
     COMPONENT runtime
     DESTINATION ${AVO_LIBRARY_DIR}
-    ${AVO_NAMELINK_COMPONENT_ARGUMENT}
-  PUBLIC_HEADER
-    COMPONENT development
-    DESTINATION ${AVO_INCLUDE_DIR}
+    NAMELINK_COMPONENT development
   RUNTIME
     COMPONENT runtime
     DESTINATION ${CMAKE_INSTALL_BINDIR}
   INCLUDES DESTINATION ${AVO_INCLUDE_DIR})
 
-install(FILES "${CMAKE_CURRENT_BINARY_DIR}/Export.h"
-  COMPONENT development
-  DESTINATION ${AVO_INCLUDE_DIR})
-
 install(EXPORT ${PROJECT_NAME}Targets
   COMPONENT development
   DESTINATION ${AVO_DIR}
   NAMESPACE ${PROJECT_NAME}::)
+
+if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.31
+    AND ENABLE_CMAKE_EXPERIMENTAL_FEATURES)
+  set(CMAKE_EXPERIMENTAL_EXPORT_PACKAGE_INFO
+    b80be207-778e-46ba-8080-b23bba22639e)
+
+  install(PACKAGE_INFO ${AVO_LIBRARY}
+    EXPORT ${PROJECT_NAME}Targets
+    COMPONENT development
+    DESTINATION ${AVO_CPS_DIR}
+    VERSION ${PROJECT_VERSION}
+    COMPAT_VERSION ${PROJECT_VERSION_MAJOR}
+    VERSION_SCHEMA simple)
+endif()
