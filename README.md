@@ -79,7 +79,7 @@ applied to kinematically constrained non-holonomic robots such as cars. We have
 implemented our approach, and we show simulation results in challenging
 environments with large numbers of robots and obstacles.
 
-![Build Status](https://github.com/snape/AVO2/workflows/ci/badge.svg?branch=main)
+![Build Status](https://github.com/snape/AVO2/actions/workflows/ci.yml/badge.svg?branch=main)
 
 <!-- REUSE-IgnoreStart -->
 SPDX-FileCopyrightText: 2010 University of North Carolina at Chapel Hill  
