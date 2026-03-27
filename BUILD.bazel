@@ -75,6 +75,7 @@ pkg_files(
 
 cc_shared_library(
     name = "AVO",
+    visibility = ["//visibility:public"],
     deps = ["//src:AVO"],
 )
 
@@ -101,7 +102,7 @@ cat << 'EOF' > $@
     }
   },
   "cps_path": "@prefix@/lib/cps/AVO",
-  "cps_version": "0.13.0",
+  "cps_version": "0.14.1",
   "default_components": ["AVO"],
   "description": "Reciprocal Collision Avoidance with Acceleration-Velocity Obstacles",
   "license": "Apache-2.0",
@@ -114,9 +115,64 @@ EOF
 """,
 )
 
+genrule(
+    name = "avo_release_cps",
+    outs = ["AVO@release.cps"],
+    cmd = select({
+        "@platforms//os:macos": """
+cat << 'EOF' > $@
+{
+  "components":
+  {
+    "AVO":
+    {
+      "location": "@prefix@/lib/libAVO.dylib"
+    }
+  },
+  "configuration": "Release",
+  "name": "AVO"
+}
+EOF
+""",
+        "@platforms//os:windows": """
+cat << 'EOF' > $@
+{
+  "components":
+  {
+    "AVO":
+    {
+      "location": "@prefix@/lib/AVO.dll"
+    }
+  },
+  "configuration": "Release",
+  "name": "AVO"
+}
+EOF
+""",
+        "//conditions:default": """
+cat << 'EOF' > $@
+{
+  "components":
+  {
+    "AVO":
+    {
+      "location": "@prefix@/lib/libAVO.so"
+    }
+  },
+  "configuration": "Release",
+  "name": "AVO"
+}
+EOF
+""",
+    }),
+)
+
 pkg_files(
     name = "cps",
-    srcs = ["AVO.cps"],
+    srcs = [
+        "AVO.cps",
+        "AVO@release.cps",
+    ],
     attributes = pkg_attributes(mode = "0644"),
     prefix = "usr/lib/cps/AVO",
 )
@@ -197,11 +253,13 @@ pkg_tar(
 
 pkg_deb(
     name = "deb",
-    architecture = select({
-        "@platforms//cpu:arm": "amd64",
-        "@platforms//os:macos": "arm64",
-        "//conditions:default": "all",
-    }),
+    architecture = select(
+        {
+            "@platforms//cpu:aarch64": "arm64",
+            "@platforms//cpu:x86_64": "amd64",
+        },
+        no_match_error = "Unsupported CPU for //:deb. Supported CPUs: aarch64, x86_64.",
+    ),
     data = ":tar",
     depends = [
         "libc6",
@@ -215,6 +273,7 @@ pkg_deb(
     package = "avo",
     priority = "optional",
     section = "contrib/libdevel",
+    target_compatible_with = ["@platforms//os:linux"],
     triggers = "triggers",
     version = "1.0.1",
 )
