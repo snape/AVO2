@@ -33,7 +33,7 @@
 # <https://gamma.cs.unc.edu/AVO/>
 #
 
-FROM ubuntu:24.04
+FROM ubuntu:26.04
 ARG TARGETARCH
 LABEL org.opencontainers.image.authors="Jur van den Berg, Jamie Snape, Stephen J. Guy, and Dinesh Manocha"
 LABEL org.opencontainers.image.base.name="docker.io/library/ubuntu:latest"
