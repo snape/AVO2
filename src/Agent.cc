@@ -430,15 +430,15 @@ void Agent::computeNewVelocity(float timeStep) {
         const float rSq = accelInterval_ * accelInterval_ * combinedMaxAccel *
                           combinedMaxAccel;
 
-        for (int i = 0; i < static_cast<int>(boundary.size()) - 1; ++i) {
+        for (std::size_t i = 0U; i + 1U < boundary.size(); ++i) {
           const Vector2 p = boundary[i];
-          const Vector2 v = boundary[i + 1] - boundary[i];
+          const Vector2 v = boundary[i + 1U] - boundary[i];
           const float vSq = absSq(v);
           const float detPv = det(p, v);
           const float discr2 = rSq * vSq - detPv * detPv;
 
           const float distSq1 = absSq(boundary[i]);
-          const float distSq2 = absSq(boundary[i + 1]);
+          const float distSq2 = absSq(boundary[i + 1U]);
 
           if (discr2 > 0.0F && ((distSq1 < rSq && distSq2 > rSq) ||
                                 (distSq1 >= rSq && distSq2 <= rSq) ||
@@ -540,9 +540,9 @@ void Agent::computeNewVelocity(float timeStep) {
     float minDistSq = std::numeric_limits<float>::infinity();
     std::size_t minSegment = 0U;
 
-    for (int i = 0; i < static_cast<int>(boundary.size()) - 1; ++i) {
+    for (std::size_t i = 0U; i + 1U < boundary.size(); ++i) {
       const float distSq =
-          distSqPointLineSegment(boundary[i], boundary[i + 1], Vector2());
+          distSqPointLineSegment(boundary[i], boundary[i + 1U], Vector2());
 
       if (distSq < minDistSq) {
         minDistSq = distSq;

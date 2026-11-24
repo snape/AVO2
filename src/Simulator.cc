@@ -147,7 +147,7 @@ void Simulator::doStep() {
 #ifdef _OPENMP
 #pragma omp parallel for
 #endif  // _OPENMP
-  for (int agentNo = 0; agentNo < static_cast<int>(agents_.size()); ++agentNo) {
+  for (std::size_t agentNo = 0U; agentNo < agents_.size(); ++agentNo) {
     agents_[agentNo]->computeNeighbors(kdTree_);
     agents_[agentNo]->computeNewVelocity(timeStep_);
   }
@@ -155,7 +155,7 @@ void Simulator::doStep() {
 #ifdef _OPENMP
 #pragma omp parallel for
 #endif  // _OPENMP
-  for (int agentNo = 0; agentNo < static_cast<int>(agents_.size()); ++agentNo) {
+  for (std::size_t agentNo = 0U; agentNo < agents_.size(); ++agentNo) {
     agents_[agentNo]->update(timeStep_);
   }
 
