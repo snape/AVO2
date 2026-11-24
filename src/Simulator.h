@@ -393,7 +393,14 @@ class AVO_EXPORT Simulator {
   KdTree *kdTree_;
   float globalTime_;
   float timeStep_;
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable : 4251)
+#endif  // _MSC_VER
   std::vector<Agent *> agents_;
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif  // _MSC_VER
 
   friend class KdTree;
 };

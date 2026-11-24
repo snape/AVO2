@@ -83,6 +83,10 @@ if(WIN32)
   target_compile_definitions(${AVO_LIBRARY} PUBLIC NOMINMAX)
 endif()
 
+if(NOT BUILD_SHARED_LIBS)
+  target_compile_definitions(${AVO_LIBRARY} PUBLIC AVO_STATIC_DEFINE)
+endif()
+
 if(ENABLE_OPENMP AND OpenMP_FOUND)
   target_link_libraries(${AVO_LIBRARY} PRIVATE OpenMP::OpenMP_CXX)
 endif()
