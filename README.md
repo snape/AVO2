@@ -81,6 +81,7 @@ environments with large numbers of robots and obstacles.
 
 ![Bazel](https://github.com/snape/AVO2/actions/workflows/bazel.yml/badge.svg?branch=main)
 ![CMake](https://github.com/snape/AVO2/actions/workflows/cmake.yml/badge.svg?branch=main)
+![Meson](https://github.com/snape/AVO2/actions/workflows/meson.yml/badge.svg?branch=main)
 
 <!-- REUSE-IgnoreStart -->
 SPDX-FileCopyrightText: 2010 University of North Carolina at Chapel Hill  
